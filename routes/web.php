@@ -23,3 +23,7 @@ Route::get('/', function () {
 Auth::routes(['verify'=>true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/login/redirect/{service}',[SocialAuthController::class,'redirect'])->name('redirect');
+
+Route::get('/login/callback/{service}',[SocialAuthController::class,'callback'])->name('callback');
