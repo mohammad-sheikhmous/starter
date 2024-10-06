@@ -3,6 +3,12 @@
 @section('title') Index @endsection
 
 @section('content')
+
+    @if(Session::has('success'))
+      <div class="alert alert-success" role="alert">
+        {{Session::get('success')}}
+      </div>
+    @endif
     <div class = "text-center">
         <a href = "{{route('posts.create',$user_id)}}" class="btn btn-success">Create</a>
     </div>

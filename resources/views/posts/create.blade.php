@@ -3,7 +3,7 @@
 @section('title') Create @endsection
 
 @section('content')
-    @if($errors->any())
+    {{-- @if($errors->any())
         <div class ="alert alert-danger">
             <ul>
                 @foreach($errors->all() as $error)
@@ -11,7 +11,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif --}}
     <form method = "POST" action="{{route('posts.store',$user_id)}}" >
         @csrf 
         <!-- @method('GET') -->
@@ -19,10 +19,16 @@
         <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Title</label>
             <input type="text" class="form-control" name="title"id="exampleFormControlInput1" value="{{old('title')}}" placeholder="type a title">
+            @error('title')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label">Description</label>
             <textarea class="form-control" name = "description"id="exampleFormControlTextarea1" rows="3">{{old('description')}}</textarea>
+            @error('description')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
         </div>
         <!-- <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Post Creator</label>

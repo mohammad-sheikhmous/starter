@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Comment;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -31,7 +32,7 @@ class PostController extends Controller
         // $users = User::all();
         return view('posts.create',['user_id' => $user_id]);
     }
-    public function store(){
+    public function store(PostRequest $request){
         // 1- get the post data
         // $data = request() -> all();
         // $title = $_POST["title"]; php native 
@@ -40,11 +41,17 @@ class PostController extends Controller
         $description = request() -> description;
         $postCreator = request() -> user_id;
         // code to validate data 
-        request()-> validate([
-            'title' => ['required','min:3'],
-            'description' => ['required','min:5'],
-            // 'post_creator' => ['required','exists:users,id']
-        ]); 
+        // $rules = [
+        //     'title' => ['required','min:3'],
+        //     'description' => ['required','min:5'],
+        //     // 'post_creator' => ['required','exists:users,id']
+        // ];
+        // $messages = [
+        //     'title.required' => 'The title field is required.',
+        //     'description.required' => 'We need the description!',
+        //     'title.min' => 'The title must be at least 3 characters.',
+        // ];
+        // request()-> validate($rules,$messages); 
         // 2- store the post data in database
         
         // $post = new Post;
@@ -59,22 +66,22 @@ class PostController extends Controller
             'user_id' => $postCreator
         ]);
         // 3- redirection to posts.index
-        return to_route('posts.index',$postCreator);
+        return to_route('posts.index',$postCreator)->with('success','new post created successfully..');
     }
     public function edit($user_id,Post $post){
         // $users = User::all();
         return view('posts.edit',['post' => $post,'user_id'=>$user_id]);
     }
-    public function update($user_id,$post_id){
+    public function update($user_id,$post_id,PostRequest $requset){
         $title = request() -> title;
         $description = request() -> description;
         // $postCreator = request() -> post_creator ;
         // code to validate data 
-        request()-> validate([
-            'title' => ['required','min:3'],
-            'description' => ['required','min:5'],
-            // 'post_creator' => ['required','exists:users,id']
-        ]); 
+        // request()-> validate([
+        //     'title' => ['required','min:3'],
+        //     'description' => ['required','min:5'],
+        //     // 'post_creator' => ['required','exists:users,id']
+        // ]); 
         //2- store the edited post data in database 
             //select or find the post
             //update the post data 

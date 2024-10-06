@@ -13,6 +13,9 @@ class Post extends Model
         'description',
         'user_id'
     ];
+    protected $hidden = [
+        'description',
+    ];
 
     public function user()
     {
@@ -24,4 +27,11 @@ class Post extends Model
     // {
     //     return $this-> belongsTo(User::class,'user_id');
     // }
+
+    protected function casts(): array
+    {
+        return [
+            'title' => 'hashed',
+        ];
+    }
 }
