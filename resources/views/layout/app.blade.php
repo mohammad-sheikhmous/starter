@@ -17,6 +17,14 @@
       <div class="navbar-nav">
         <a class="nav-link active" href="{{route('posts.index',$user_id)}}">All Posts</a>
         <a class="nav-link active" href="{{route('login.signIn')}}">Sign Out</a>
+
+        @foreach (LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+          <li >
+            <a class="nav-link active" href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+              {{ $properties['native'] }}
+            </a>
+          </li>
+        @endforeach  
       </div>
     </div>
   </div>

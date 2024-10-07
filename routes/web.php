@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route0;
 use App\Http\Controllers\PostController;
 
 use App\Http\Controllers\CommentController;
+use Illuminate\Support\Facades\Middleware;
 
 // Load the admin route file
 require base_path('routes/admin.php');

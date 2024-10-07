@@ -32,9 +32,9 @@ class PostRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => 'The title field is required.',
-            'description.required' => 'We need the description!',
-            'title.min' => 'The title must be at least 3 characters.',
+            'title.required' => __('messages.The title field is required'),
+            'description.required' => __('messages.We need the description'),
+            'title.min' => __('messages.The title must be at least 3 characters'),
         ];
     }
 }
