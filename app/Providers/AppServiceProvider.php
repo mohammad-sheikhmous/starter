@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Event\YoutubeEvent;
+use App\Listener\YoutubeListener;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-    
+        Event::listen(
+            YoutubeEvent::class,
+            YoutubeListener::class,
+        );
     }
 }

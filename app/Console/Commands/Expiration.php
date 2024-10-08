@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Model\User;
+use App\Models\User;
 
 class Expiration extends Command
 {
@@ -26,10 +26,11 @@ class Expiration extends Command
      */
     public function handle()
     {
-        $users = User::where('expire',0)->get();
+        $users = User::where('expire',null)->get();
+        // dd($users);
         foreach($users as $user){
             $user->update([
-                'expire'=> 1
+                'expire'=> '1'
             ]);
         }
     }

@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
         // Here you can define your scheduled tasks
         // Example: Run a custom command daily
         $schedule->command('user:expire')->everyMinute();
-        $schedule->command('user:notify')->everyMinute();
+        $schedule->command('user:notify')->everySecond();
         
         // Laravel can notify you when a scheduled task fails or runs too long by sending notifications via Slack, email,
         //  or any supported notification channels. Here’s an example:
