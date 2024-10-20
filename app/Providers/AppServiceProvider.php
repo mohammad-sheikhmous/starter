@@ -3,8 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Event\YoutubeEvent;
-use App\Listener\YoutubeListener;
+use App\Events\YoutubeEvent;
+use App\Listeners\YoutubeListener;
+use Illuminate\Support\Facades\Event;
 
 class AppServiceProvider extends ServiceProvider
 {

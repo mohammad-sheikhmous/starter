@@ -73,6 +73,10 @@ class PostController extends Controller
         // $users = User::all();
         return view('posts.edit',['post' => $post,'user_id'=>$user_id]);
     }
+    public function ajax_edit($user_id,Post $post){
+        // $users = User::all();
+        return view('posts.ajax-edit',['post' => $post,'user_id'=>$user_id]);
+    }
     public function update($user_id,$post_id,PostRequest $requset){
         $title = request() -> title;
         $description = request() -> description;
@@ -86,7 +90,7 @@ class PostController extends Controller
         //2- store the edited post data in database 
             //select or find the post
             //update the post data 
-        $singlePostFromDb = Post::find($postId);
+        $singlePostFromDb = Post::find($post_id);
         $singlePostFromDb-> update([
             'title'=> $title,
             'description'=> $description,
@@ -100,6 +104,20 @@ class PostController extends Controller
         //3- redirection to posts.index
             return to_route('posts.index',$user_id);
     }
+    public function ajax_update($user_id,$post_id,PostRequest $requset){
+        $title = request() -> title;
+        $description = request() -> description;
+        $singlePostFromDb = Post::find($post_id);
+        $singlePostFromDb-> update([
+            'title'=> $title,
+            'description'=> $description,
+            // 'user_id' => $postCreator
+        ]);
+        return response()->json([
+            'status'=> true,
+            'msg'=> 'the item edited successfully...'
+        ]);
+    }
     public function destroy($user_id,$postId){
         //1- select or find the post
         $post = Post::find($postId);
@@ -111,6 +129,29 @@ class PostController extends Controller
         // dd($postId);
         //3- redirection to posts.index
         return to_route('posts.index',$user_id);
+    }
+    public function ajax_destroy(){
+        //1- select or find the post
+        $post = Post::find(request()->post_id);
+        // dd(request());
+        if(!$post){
+            return response()->json([
+                'status'=>false,
+                'msg'=>'the item has not been deleted successfully'
+            ]);
+        }
+        $commentsOfThePost=Comment::where('post_id',request()->post_id)->delete();
+        //2- delete the post from database 
+        $post -> delete();
+        // or delete model event too
+        // Post::where('id',$postId) -> delete();
+        // dd($postId);
+        //3- redirection to posts.index
+        return response()->json([
+            'status'=>true,
+            'msg'=>'the item has been deleted successfully',
+            'id'=>request()->post_id
+        ]);
     }
     public function signIn()
     {
